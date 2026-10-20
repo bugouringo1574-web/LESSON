@@ -1,0 +1,18 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // rooms/{roomId}/members/{uid} に入っている人だけが、その部屋のタスクを読み書きできる
+    match /rooms/{roomId}/tasks/{taskId} {
+      allow read, write: if request.auth != null
+        && exists(/databases/$(database)/documents/rooms/$(roomId)/members/$(request.auth.uid));
+    }
+
+    // メンバー登録は本人のみ（お母さんと自分の2つのUIDだけが入る想定）
+    match /rooms/{roomId}/members/{uid} {
+      allow read: if request.auth != null && request.auth.uid == uid;
+      allow create: if request.auth != null && request.auth.uid == uid;
+      allow delete: if request.auth != null && request.auth.uid == uid;
+    }
+  }
+}

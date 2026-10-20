@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>おうちタスク</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <h1>おうちタスク</h1>
+  <div class="who" id="who"></div>
+</header>
+
+<!-- ログイン -->
+<section id="loginView" class="card center hidden">
+  <p class="lead">お母さんと自分の2人で、<br>やることを共有するアプリです。</p>
+  <button id="googleBtn" class="btn primary">Googleでログイン</button>
+</section>
+
+<!-- おうちコード -->
+<section id="roomView" class="card hidden">
+  <h2>おうちコード</h2>
+  <p class="note">2人で同じ合言葉を入れると、同じリストを共有できます。</p>
+  <input id="roomInput" type="text" placeholder="例：sato-house" autocomplete="off">
+  <button id="roomBtn" class="btn primary">このおうちに入る</button>
+</section>
+
+<!-- メイン -->
+<main id="appView" class="hidden">
+  <form id="addForm" class="card add">
+    <input id="titleInput" type="text" placeholder="やること（例：洗面所を片付ける）" required>
+    <div class="row">
+      <input id="dueInput" type="date">
+      <select id="forInput">
+        <option value="me">じぶん</option>
+        <option value="mom">お母さん</option>
+      </select>
+    </div>
+    <button class="btn primary" type="submit">追加する</button>
+  </form>
+
+  <nav class="tabs">
+    <button class="tab is-active" data-filter="todo">のこり</button>
+    <button class="tab" data-filter="done">おわった</button>
+    <button class="tab" data-filter="all">ぜんぶ</button>
+  </nav>
+
+  <p id="summary" class="summary"></p>
+  <ul id="list" class="list"></ul>
+  <p id="empty" class="empty hidden">ここにはまだ何もありません🌸</p>
+
+  <footer class="foot">
+    <span id="roomLabel"></span>
+    <button id="leaveBtn" class="btn ghost">おうちを変える</button>
+    <button id="outBtn" class="btn ghost">ログアウト</button>
+  </footer>
+</main>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
